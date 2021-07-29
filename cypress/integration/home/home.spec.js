@@ -37,4 +37,29 @@ describe("Home page", () => {
             });
     });
 
+    it("can display multiple recipes", () => {
+        const recipeNames = ['Pasta', 'Omelet', 'Sandwich'];
+        const recipeInstructions = ['Boil it.', 'Fry it.', 'Stack it.'];
+        var idx = 0;
+        cy.findByRole('button').click();
+        recipeNames.map(
+            (recipeName) => {
+              cy.findByRole('textbox', {name: /Recipe name/i}).type(recipeName);
+              cy.findByRole('textbox', {name: /instructions/i}).type(recipeInstructions[idx]);
+              cy.findByRole('button').click()
+              idx++;
+              return;
+            }
+          )
+        
+        recipeNames.map(
+                (recipeName) => {
+                    expect(cy.findByRole('listitem', recipeName)).toExist();
+                    
+                  return;
+                }
+              );
+        }
+        );
+
 });
