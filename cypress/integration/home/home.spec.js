@@ -52,13 +52,14 @@ describe("Home page", () => {
             }
           )
         
-        recipeNames.map(
-                (recipeName) => {
-                    expect(cy.findByRole('listitem', recipeName)).toExist();
-                    
-                  return;
-                }
-              );
+        //recipeNames.map(
+                //(recipeName) => {
+                    cy.get('ul').children().should('have.length', 3)
+                    //expect(cy.get('ul.recipe-list').children().length).toEqual(3)
+                    //.should('have.length', 3)
+                  //return;
+                //}
+              //);
         }
         );
 

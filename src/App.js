@@ -24,12 +24,14 @@ class App extends React.Component {
   submitRecipe = (event) => {
 
     event.preventDefault()
-    this.setState({recipes: [
+    this.setState({recipes: Array.prototype.concat(this.state.recipes, 
         {
           name: this.state.newRecipeName,
-          instructions :this.state.newRecipeInstructions
+          instructions: this.state.newRecipeInstructions
         }
-      ]
+      ),
+      newRecipeName: '',
+      newRecipeInstructions: '',
     })
 
   }
@@ -40,7 +42,11 @@ class App extends React.Component {
 
   render(){
     const addNewRecipeForm = (
-      <form id="recipe-form" onSubmit={this.submitRecipe}>
+      <form id="recipe-form" onSubmit={(event) => {
+          //document.getElementById('newRecipeName').value = '';
+          //document.getElementById('newRecipeInstructions').value = '';
+          this.submitRecipe(event);
+        }}>
         <label htmlFor="newRecipeName">Recipe name: </label>
         <input type="text" 
           id="newRecipeName"
@@ -56,7 +62,7 @@ class App extends React.Component {
         <input type="submit" />
       </form>
     )
-
+      
     return (
       <div className="App">
         <h1 className="App-header">My Recipes</h1>
@@ -67,7 +73,7 @@ class App extends React.Component {
         }
         {
           this.state.recipes.length > 0 ?
-          <ul>
+          <ul className="recipe-list">
             { 
               this.state.recipes.map(
                 (recipe) => {
